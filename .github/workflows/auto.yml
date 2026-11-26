@@ -5,6 +5,10 @@ on:
     - cron: '27 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,4 +34,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git add .
           git commit -m "Auto update playlist" || echo "No changes"
-          git push --force
+          git push origin main
+
+      - name: Keep scheduled workflow active
+        uses: gautamkrishnar/keepalive-workflow@v2
