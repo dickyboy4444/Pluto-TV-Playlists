@@ -37,4 +37,7 @@ jobs:
           git push origin main
 
       - name: Keep scheduled workflow active
-        uses: gautamkrishnar/keepalive-workflow@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api --method PUT "repos/${{ github.repository }}/actions/workflows/auto.yml/enable"
